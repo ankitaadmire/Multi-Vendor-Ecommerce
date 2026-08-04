@@ -1,0 +1,65 @@
+{% extends 'adminpanel/base_admin.html' %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0 rounded-4">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h3>
+
+                        <i class="fa-solid fa-pen"></i>
+
+                        Edit Product
+
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST"
+                          enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+
+                        <div class="d-flex justify-content-between mt-4">
+
+                            <a href="{% url 'all_products' %}"
+                               class="btn btn-secondary">
+
+                                Back
+
+                            </a>
+
+                            <button class="btn btn-primary">
+
+                                <i class="fa-solid fa-floppy-disk"></i>
+
+                                Save Changes
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

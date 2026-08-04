@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Order Successful{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="glass text-center p-5">
+
+        <div style="font-size:80px;">
+            🎉
+        </div>
+
+        <h1 class="gradient-text fw-bold mt-3">
+            Order Placed Successfully!
+        </h1>
+
+        <div class="alert alert-success mt-4">
+
+            <h5>
+        
+                Order ID :
+                <strong>#{{ order.id }}</strong>
+        
+            </h5>
+        
+            <p class="mb-0">
+        
+                Estimated Delivery :
+                <strong>3 - 5 Business Days</strong>
+        
+            </p>
+        
+        </div>
+
+        <p class="text-secondary mt-3">
+
+            Thank you for shopping with us.
+
+            <br>
+
+            Your order has been received successfully.
+
+        </p>
+
+        <div class="mt-5">
+
+            <a href="{% url 'my_orders' %}"
+               class="btn pastel-btn btn-lg me-3">
+
+                📦 View My Orders
+
+            </a>
+
+            <a href="{% url 'product_list' %}"
+               class="btn btn-outline-secondary btn-lg">
+
+                🛍 Continue Shopping
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

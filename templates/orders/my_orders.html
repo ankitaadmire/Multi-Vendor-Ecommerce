@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block title %}My Orders{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="text-center mb-5">
+
+        <span class="badge rounded-pill px-3 py-2 mb-3"
+              style="background:#F4E8FF;color:#8B5CF6;">
+
+            📦 Orders
+
+        </span>
+
+        <h1 class="gradient-text fw-bold">
+            My Orders
+        </h1>
+
+        <p class="text-muted">
+            Track all your purchases in one place.
+        </p>
+
+    </div>
+
+{% if orders %}
+
+<div class="row g-4">
+
+{% for order in orders %}
+
+<div class="col-lg-6">
+
+<div class="order-card">
+
+<div class="row g-0">
+
+<div class="col-md-4">
+
+<img src="{{ order.product.image.url }}"
+class="img-fluid h-100 w-100"
+style="object-fit:cover;">
+
+</div>
+
+<div class="col-md-8">
+
+<div class="card-body p-4">
+
+<h4>{{ order.product.product_name }}</h4>
+
+<p class="text-muted">
+
+₹ {{ order.total_price }}
+
+</p>
+
+<p>
+
+Quantity :
+<strong>{{ order.quantity }}</strong>
+
+</p>
+
+<p>
+
+Ordered On :
+
+<strong>
+
+{{ order.ordered_at|date:"d M Y" }}
+
+</strong>
+
+</p>
+
+{% if order.status == "Pending" %}
+
+<span class="status pending">
+
+Pending
+
+</span>
+
+<div class="timeline">
+
+<div class="circle active"></div>
+
+<div class="line"></div>
+
+<div class="circle"></div>
+
+<div class="line"></div>
+
+<div class="circle"></div>
+
+</div>
+
+{% elif order.status == "Shipped" %}
+
+<span class="status shipped">
+
+Shipped
+
+</span>
+
+<div class="timeline">
+
+<div class="circle active"></div>
+
+<div class="line active"></div>
+
+<div class="circle active"></div>
+
+<div class="line"></div>
+
+<div class="circle"></div>
+
+</div>
+
+{% else %}
+
+<span class="status delivered">
+
+Delivered
+
+</span>
+
+<div class="timeline">
+
+<div class="circle active"></div>
+
+<div class="line active"></div>
+
+<div class="circle active"></div>
+
+<div class="line active"></div>
+
+<div class="circle active"></div>
+
+</div>
+
+{% endif %}
+
+<div class="timeline-labels">
+
+<span>Placed</span>
+
+<span>Shipped</span>
+
+<span>Delivered</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="glass text-center p-5">
+
+<img src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png"
+width="180">
+
+<h2 class="mt-4">
+
+No Orders Yet
+
+</h2>
+
+<p class="text-muted">
+
+Start shopping and your orders will appear here.
+
+</p>
+
+<a href="{% url 'product_list' %}"
+
+class="btn pastel-btn">
+
+Shop Now
+
+</a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+Write Review
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="glass p-5 mx-auto" style="max-width:700px;">
+
+        <h2 class="gradient-text mb-4">
+
+            Review for {{ product.product_name }}
+
+        </h2>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Rating
+
+                </label>
+
+                {{ form.rating }}
+
+            </div>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+
+                    Feedback
+
+                </label>
+
+                {{ form.comment }}
+
+            </div>
+
+            <button type="submit"
+                    class="btn pastel-btn">
+
+                Submit Review
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Pending Product Requests</h2>
+
+<table class="table table-bordered">
+
+    <tr>
+        <th>Product</th>
+        <th>Seller</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    {% for product in products %}
+
+    <tr>
+        <td>{{ product.product_name }}</td>
+        <td>{{ product.seller.username }}</td>
+        <td>{{ product.status }}</td>
+        <td>
+
+            <a href="{% url 'approve_product' product.id %}"
+               class="btn btn-success btn-sm">
+        
+                Approve
+        
+            </a>
+        
+            <a href="{% url 'reject_product' product.id %}"
+               class="btn btn-danger btn-sm">
+        
+                Reject
+        
+            </a>
+        
+        </td>
+    </tr>
+
+    {% empty %}
+
+    <tr>
+        <td colspan="3">No Pending Requests</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

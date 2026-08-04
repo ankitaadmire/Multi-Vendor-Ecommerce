@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Seller Registration
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+<div class="col-lg-6">
+
+<div class="glass p-5">
+
+<div class="text-center mb-4">
+
+<div style="font-size:65px;">🏪</div>
+
+<h2 class="gradient-text fw-bold">
+
+Seller Registration
+
+</h2>
+
+<p class="text-secondary">
+
+Start selling with your own online store.
+
+</p>
+
+</div>
+
+<form method="POST">
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<button class="btn pastel-btn w-100 py-3 mt-3">
+
+Become a Seller
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

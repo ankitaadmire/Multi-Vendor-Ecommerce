@@ -1,0 +1,29 @@
+{% if notifications %}
+
+    {% for notification in notifications %}
+
+    <li class="dropdown-item">
+
+        <strong>
+            {{ notification.message }}
+        </strong>
+
+        <br>
+
+        <small class="text-muted">
+            {{ notification.created_at|timesince }} ago
+        </small>
+
+    </li>
+
+    {% endfor %}
+
+{% else %}
+
+<li class="dropdown-item">
+
+    No Notifications
+
+</li>
+
+{% endif %}

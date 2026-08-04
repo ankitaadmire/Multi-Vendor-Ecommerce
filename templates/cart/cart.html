@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+
+{% block title %}My Cart{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO ================= -->
+
+<div class="glass p-5 text-center mb-5">
+
+    <span class="badge rounded-pill px-3 py-2 mb-3"
+          style="background:#F4E8FF;color:#8B5CF6;">
+
+        🛒 Shopping Cart
+
+    </span>
+
+    <h1 class="gradient-text fw-bold">
+
+        My Shopping Cart
+
+    </h1>
+
+    <p class="text-secondary mt-3">
+
+        Review your selected products before placing your order.
+
+    </p>
+
+</div>
+
+{% if cart_items %}
+
+<div class="row">
+
+    <div class="col-lg-8">
+
+        {% for item in cart_items %}
+
+        <div class="card cart-product-card mb-3">
+
+            <div class="row g-0 align-items-center">
+
+                <div class="col-md-3">
+
+                    <img src="{{ item.product.image.url }}"
+                         class="img-fluid rounded-start"
+                         style="height:220px;width:100%;object-fit:cover;">
+
+                </div>
+
+                <div class="col-md-9">
+
+                    <div class="card-body">
+
+                        <h4 class="fw-bold">
+
+                            {{ item.product.product_name }}
+
+                        </h4>
+
+                        <p class="text-secondary">
+
+                            {{ item.product.description|truncatewords:20 }}
+
+                        </p>
+
+                        <div class="mb-3">
+
+                            <span class="badge"
+                                  style="background:#FCE7F3;color:#DB2777;">
+                        
+                                ⭐ Bestseller
+                        
+                            </span>
+                        
+                            <span class="badge ms-2"
+                                  style="background:#EDE9FE;color:#7C3AED;">
+                        
+                                🚚 Free Delivery
+                        
+                            </span>
+                        
+                        </div>
+
+                        <h3 class="gradient-text">
+
+                            ₹ {{ item.product.price }}
+
+                        </h3>
+
+                        <div class="mt-4 d-flex align-items-center">
+
+                            <a href="{% url 'decrease_quantity' item.id %}"
+                               class="btn btn-danger">
+
+                               <i class="fa-solid fa-minus"></i>
+
+                            </a>
+
+                            <span class="mx-3 fw-bold fs-5">
+
+                                {{ item.quantity }}
+
+                            </span>
+
+                            <a href="{% url 'increase_quantity' item.id %}"
+                               class="btn btn-success">
+
+                               <i class="fa-solid fa-plus"></i>
+
+                            </a>
+
+                            <a href="{% url 'remove_item' item.id %}"
+                               class="btn btn-outline-danger ms-auto">
+
+                                <i class="fa-solid fa-trash"></i>
+
+                                Remove
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+
+
+
+    <div class="col-lg-4">
+
+        <div class="glass p-4 sticky-top">
+
+            <h3 class="gradient-text mb-4">
+                Order Summary
+            </h3>
+        
+            <div class="d-flex justify-content-between mb-3">
+                <span>Items</span>
+                <strong>{{ cart_items|length }}</strong>
+            </div>
+        
+            <div class="d-flex justify-content-between mb-3">
+                <span>Shipping</span>
+                <span class="text-success">FREE 🚚</span>
+            </div>
+        
+            <div class="d-flex justify-content-between mb-3">
+                <span>Discount</span>
+                <span class="text-danger">₹0</span>
+            </div>
+        
+            <hr>
+        
+            <div class="d-flex justify-content-between mb-4">
+        
+                <h5>Total</h5>
+        
+                <h4 class="gradient-text">
+        
+                    ₹ {{ total }}
+        
+                </h4>
+        
+            </div>
+        
+        
+            <hr>
+            <a href="{% url 'checkout' %}"
+               class="btn pastel-btn w-100 mb-3">
+
+                <i class="fa-solid fa-credit-card me-2"></i>
+
+                Proceed to Checkout
+
+            </a>
+
+            <a href="{% url 'product_list' %}"
+               class="btn btn-light shadow w-100">
+
+                Continue Shopping
+
+            </a>
+
+        
+            <div class="mt-4">
+        
+                <h6 class="fw-bold">
+        
+                    Why Shop With Us?
+        
+                </h6>
+        
+                <p class="small text-muted mb-2">
+        
+                    ✅ Secure Payments
+        
+                </p>
+        
+                <p class="small text-muted mb-2">
+        
+                    🚚 Free Delivery
+        
+                </p>
+        
+                <p class="small text-muted mb-2">
+        
+                    🔄 Easy Returns
+        
+                </p>
+        
+                <p class="small text-muted">
+        
+                    💜 24×7 Customer Support
+        
+                </p>
+        
+            </div>
+        
+        </div>
+            
+
+        </div>
+
+    </div>
+
+</div>
+
+{% else %}
+
+<div class="glass text-center p-5">
+
+    <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
+         width="170">
+
+    <h2 class="mt-4">
+
+        Your Cart is Empty
+
+    </h2>
+
+    <p class="text-secondary">
+
+        Looks like you haven't added anything yet.
+
+    </p>
+
+    <a href="{% url 'product_list' %}"
+       class="btn pastel-btn mt-3">
+
+        Start Shopping
+
+    </a>
+    <p class="mt-4 text-muted">
+
+        Explore hundreds of premium products from trusted sellers.
+        
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

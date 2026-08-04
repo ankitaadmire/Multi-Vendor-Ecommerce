@@ -1,0 +1,238 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Platform Ecommerce{% endblock %}</title>
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=999">
+
+
+
+</head>
+
+
+
+<body>
+
+    <!-- Premium Loader -->
+
+<div id="loader">
+
+    <div class="loader-box">
+
+        <div class="loader-circle"></div>
+
+        <h2 class="gradient-text mt-4">
+
+            Marketplace
+
+        </h2>
+
+        <p>
+
+            Loading Amazing Products...
+
+        </p>
+
+    </div>
+
+</div>
+
+    {% include 'includes/navbar.html' %}
+
+    <main class="container" style="padding-top:120px; padding-bottom:40px;">
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+    <footer class="mt-5">
+
+        <div class="container text-center">
+    
+            <h5 class="mb-2">
+                Multi Vendor Ecommerce Platform
+            </h5>
+    
+            <p class="mb-0">
+                Designed & Developed using Django • Bootstrap • SQLite
+            </p>
+    
+        </div>
+    
+    </footer>
+
+{% include 'includes/footer.html' %}
+
+{% if messages %}
+
+<div class="toast-container position-fixed top-0 end-0 p-4">
+
+    {% for message in messages %}
+
+    <div class="toast show custom-toast mb-3" role="alert">
+
+        <div class="d-flex">
+
+            <div class="toast-body">
+
+                {% if message.tags == 'success' %}
+
+                    ✅ {{ message }}
+
+                {% elif message.tags == 'error' %}
+
+                    ❌ {{ message }}
+
+                {% elif message.tags == 'warning' %}
+
+                    ⚠️ {{ message }}
+
+                {% else %}
+
+                    💜 {{ message }}
+
+                {% endif %}
+
+            </div>
+
+            <button
+                type="button"
+                class="btn-close me-2 m-auto"
+                data-bs-dismiss="toast">
+            </button>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+
+<script>
+
+setTimeout(function(){
+    
+let toasts=document.querySelectorAll(".toast");
+    
+toasts.forEach(function(toast){
+    
+toast.style.opacity="0";
+    
+toast.style.transform="translateX(80px)";
+    
+setTimeout(()=>{
+    
+toast.remove();
+    
+},400);
+    
+});
+    
+},3000);
+    
+</script>
+
+
+<script>
+
+    window.addEventListener("load",function(){
+    
+    setTimeout(function(){
+    
+    document.getElementById("loader").style.opacity="0";
+    
+    document.getElementById("loader").style.visibility="hidden";
+    
+    },800);
+    
+    });
+    
+</script>
+
+<!-- Scroll To Top -->
+
+<button id="topBtn">
+
+    <i class="fa-solid fa-arrow-up"></i>
+    
+</button>
+
+<script>
+
+let topBtn=document.getElementById("topBtn");
+    
+window.onscroll=function(){
+    
+if(document.documentElement.scrollTop>300){
+    
+topBtn.style.display="flex";
+    
+}else{
+    
+topBtn.style.display="none";
+    
+}
+    
+};
+    
+topBtn.onclick=function(){
+    
+window.scrollTo({
+    
+top:0,
+    
+behavior:"smooth"
+    
+});
+    
+}
+    
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="{% static 'js/script.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- Heading -->
+
+    <div class="text-center mb-5">
+
+        <span class="badge bg-light text-dark px-3 py-2 shadow-sm">
+            Seller Panel
+        </span>
+
+        <h1 class="gradient-text fw-bold mt-3">
+            Add New Product
+        </h1>
+
+        <p class="text-muted">
+            Create a beautiful product listing and start selling across the marketplace.
+        </p>
+
+    </div>
+
+    <div class="row g-5">
+
+        <!-- Form -->
+
+        <div class="col-lg-8">
+
+            <div class="glass p-5">
+
+                <h3 class="mb-4 fw-bold">
+
+                    Product Information
+
+                </h3>
+
+                <form method="POST"
+                      enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <button class="btn pastel-btn btn-lg mt-3">
+
+                        <i class="fa-solid fa-cloud-arrow-up me-2"></i>
+
+                        Upload Product
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <!-- Right Side -->
+
+        <div class="col-lg-4">
+
+            <div class="glass p-4 mb-4 text-center">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png"
+                     width="180">
+
+                <h4 class="mt-4">
+
+                    Grow Your Store
+
+                </h4>
+
+                <p class="text-muted">
+
+                    Beautiful listings attract more customers and increase sales.
+
+                </p>
+
+            </div>
+
+
+
+
+
+            <div class="glass p-4">
+
+                <h4 class="mb-4">
+
+                    Seller Tips
+
+                </h4>
+
+                <ul class="seller-tips">
+
+                    <li>📸 Upload HD product images</li>
+
+                    <li>📝 Write detailed descriptions</li>
+
+                    <li>💰 Keep competitive pricing</li>
+
+                    <li>📦 Update stock regularly</li>
+
+                    <li>⭐ High quality images increase sales</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

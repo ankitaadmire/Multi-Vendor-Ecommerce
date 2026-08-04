@@ -1,0 +1,454 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.login-card{
+    background:#fff;
+    border-radius:30px;
+    padding:45px;
+    box-shadow:0 20px 45px rgba(0,0,0,.08);
+    animation:fadeUp .5s ease;
+}
+
+.login-icon{
+    font-size:70px;
+}
+
+.login-title{
+    font-size:42px;
+    font-weight:700;
+    color:#555;
+}
+
+.login-subtitle{
+    color:#999;
+    margin-bottom:30px;
+}
+
+/* Tabs */
+
+.login-tabs{
+    display:flex;
+    background:#FFE7F2;
+    border-radius:50px;
+    padding:6px;
+    margin-bottom:35px;
+}
+
+.login-tab{
+    width:50%;
+    border:none;
+    background:transparent;
+    padding:15px;
+    border-radius:40px;
+    font-weight:600;
+    color:#777;
+    transition:.35s;
+}
+
+.login-tab.active{
+    background:linear-gradient(135deg,#ff9ac9,#ff6fa8);
+    color:#fff;
+    box-shadow:0 8px 18px rgba(255,111,168,.35);
+}
+
+/* Inputs */
+
+.input-label{
+    font-weight:600;
+    color:#666;
+    margin-bottom:8px;
+}
+
+.form-control{
+    height:56px;
+    border-radius:18px;
+    border:2px solid #f2d7e7;
+}
+
+.form-control:focus{
+    box-shadow:none;
+    border-color:#ff75b5;
+}
+
+.password-box{
+    position:relative;
+}
+
+.password-box i{
+    position:absolute;
+    right:18px;
+    top:20px;
+    cursor:pointer;
+    color:#999;
+}
+
+.fade-box{
+    animation:fade .35s;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:none;
+}
+}
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+to{
+opacity:1;
+transform:none;
+}
+}
+
+</style>
+
+<div class="container py-5">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-6">
+
+<div class="login-card">
+
+<div class="text-center mb-4">
+
+<div class="login-icon">
+🛍️
+</div>
+
+<h2 class="login-title">
+Welcome Back
+</h2>
+
+<p class="login-subtitle">
+Login to continue shopping
+</p>
+
+</div>
+
+{% for message in messages %}
+
+<div class="alert alert-success rounded-4">
+
+{{ message }}
+
+</div>
+
+{% endfor %}
+
+<div class="login-tabs">
+
+<button
+type="button"
+id="usernameBtn"
+class="login-tab active">
+
+<i class="fa-solid fa-user me-2"></i>
+
+Login with Email
+</button>
+
+<button
+type="button"
+id="otpBtn"
+class="login-tab">
+
+<i class="fa-solid fa-mobile-screen-button me-2"></i>
+
+Login with OTP
+</button>
+
+</div>
+
+<!-- ===========================
+USERNAME LOGIN
+=========================== -->
+
+<div id="usernameLogin" class="fade-box">
+
+    <form method="POST">
+    
+    {% csrf_token %}
+    
+    <input
+    type="hidden"
+    name="action"
+    value="username_login">
+    
+    <div class="mb-3">
+    
+        <label class="input-label">
+            Email Address
+            </label>
+            
+            <input
+            type="email"
+            name="email"
+            class="form-control"
+            placeholder="Enter your email"
+            required>
+    
+    </div>
+    
+    <div class="mb-4">
+    
+    <label class="input-label">
+    
+    Password
+    
+    </label>
+    
+    <div class="password-box">
+    
+    <input
+    id="password"
+    type="password"
+    name="password"
+    class="form-control"
+    placeholder="Enter your password"
+    required>
+    
+    <i
+    id="togglePassword"
+    class="fa-solid fa-eye">
+    
+    </i>
+    
+    </div>
+    
+    </div>
+    
+    <div class="d-grid">
+    
+        <button
+        type="submit"
+        class="btn pastel-btn py-3">
+        
+        <i class="fa-solid fa-right-to-bracket me-2"></i>
+        
+        Login
+        
+        </button>
+    
+    </div>
+    
+    </form>
+    
+    </div>
+    
+    <!-- ===========================
+    OTP LOGIN
+    =========================== -->
+    
+    <div
+    id="otpLogin"
+    class="fade-box"
+    style="{% if otp_generated %}display:block;{% else %}display:none;{% endif %}">
+    
+    <form method="POST">
+    
+    {% csrf_token %}
+    
+    <div class="mb-3">
+    
+    <label class="input-label">
+    
+    Mobile Number
+    
+    </label>
+    
+    <input
+    type="text"
+    name="phone"
+    class="form-control"
+    placeholder="Enter your mobile number"
+    value="{{ phone }}"
+    required>
+    
+    </div>
+    
+    {% if otp_generated %}
+    
+    <div class="mb-3">
+    
+    <label class="input-label">
+    
+    Enter OTP
+    
+    </label>
+    
+    <input
+    type="text"
+    name="otp"
+    class="form-control"
+    placeholder="Enter 6 digit OTP"
+    required>
+    
+    </div>
+    
+    <div class="d-grid gap-2">
+    
+    <button
+    type="submit"
+    name="action"
+    value="verify_otp"
+    class="btn pastel-btn py-3">
+    
+    <i class="fa-solid fa-shield-halved me-2"></i>
+    
+    Verify OTP
+    
+    </button>
+    
+    <button
+    type="submit"
+    name="action"
+    value="generate_otp"
+    class="btn btn-light rounded-4 py-3">
+    
+    Resend OTP
+    
+    </button>
+    
+    </div>
+    
+    {% else %}
+    
+    <div class="d-grid">
+    
+    <button
+    type="submit"
+    name="action"
+    value="generate_otp"
+    class="btn pastel-btn py-3">
+    
+    <i class="fa-solid fa-paper-plane me-2"></i>
+    
+    Generate OTP
+    
+    </button>
+    
+    </div>
+    
+    {% endif %}
+    
+    </form>
+    
+    </div>
+
+<!-- JavaScript Part 3 me aayega -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+    
+        const usernameBtn = document.getElementById("usernameBtn");
+        const otpBtn = document.getElementById("otpBtn");
+    
+        const usernameLogin = document.getElementById("usernameLogin");
+        const otpLogin = document.getElementById("otpLogin");
+    
+        // =========================
+        // Default Tab
+        // =========================
+    
+        {% if otp_generated %}
+    
+            otpBtn.classList.add("active");
+            usernameBtn.classList.remove("active");
+    
+            otpLogin.style.display = "block";
+            usernameLogin.style.display = "none";
+    
+        {% else %}
+    
+            usernameBtn.classList.add("active");
+            otpBtn.classList.remove("active");
+    
+            usernameLogin.style.display = "block";
+            otpLogin.style.display = "none";
+    
+        {% endif %}
+    
+        // =========================
+        // Username Tab
+        // =========================
+    
+        usernameBtn.addEventListener("click", function(){
+    
+            usernameBtn.classList.add("active");
+            otpBtn.classList.remove("active");
+    
+            usernameLogin.style.display = "block";
+            otpLogin.style.display = "none";
+    
+        });
+    
+        // =========================
+        // OTP Tab
+        // =========================
+    
+        otpBtn.addEventListener("click", function(){
+    
+            otpBtn.classList.add("active");
+            usernameBtn.classList.remove("active");
+    
+            otpLogin.style.display = "block";
+            usernameLogin.style.display = "none";
+    
+        });
+    
+        // =========================
+        // Password Eye
+        // =========================
+    
+        const password = document.getElementById("password");
+        const togglePassword = document.getElementById("togglePassword");
+    
+        if(togglePassword){
+    
+            togglePassword.addEventListener("click", function(){
+    
+                if(password.type === "password"){
+    
+                    password.type = "text";
+    
+                    this.classList.remove("fa-eye");
+                    this.classList.add("fa-eye-slash");
+    
+                }
+    
+                else{
+    
+                    password.type = "password";
+    
+                    this.classList.remove("fa-eye-slash");
+                    this.classList.add("fa-eye");
+    
+                }
+    
+            });
+    
+        }
+    
+    });
+    
+    </script>
+    
+    {% endblock %}
+    

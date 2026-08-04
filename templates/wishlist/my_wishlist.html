@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Wishlist
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1 class="gradient-text mb-5">
+
+        ❤️ My Wishlist
+
+    </h1>
+
+    <div class="row g-4">
+
+        {% for item in wishlist_items %}
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card product-card h-100">
+
+                <img src="{{ item.product.image.url }}"
+                     class="card-img-top"
+                     style="height:250px;object-fit:cover;">
+
+                <div class="card-body">
+
+                    <h5>
+
+                        {{ item.product.product_name }}
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        ₹ {{ item.product.price }}
+
+                    </p>
+
+                    <div class="d-grid gap-2">
+
+                        <a href="{% url 'product_detail' item.product.id %}"
+                           class="btn pastel-btn">
+
+                            View Product
+
+                        </a>
+
+                        <a href="{% url 'remove_from_wishlist' item.id %}"
+                           class="btn btn-outline-danger">
+
+                            Remove
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="glass p-5 text-center">
+
+                <h3>
+
+                    ❤️ Your Wishlist is Empty
+
+                </h3>
+
+                <p class="text-muted">
+
+                    Save products you love and they'll appear here.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

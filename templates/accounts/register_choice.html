@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Choose Registration
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center align-items-center" style="min-height:80vh;">
+
+<div class="col-lg-8">
+
+<div class="glass p-5">
+
+<div class="text-center mb-5">
+
+<div style="font-size:70px;">✨</div>
+
+<h1 class="gradient-text fw-bold">
+
+Join Multi Vendor Ecommerce
+
+</h1>
+
+<p class="text-secondary">
+
+Choose how you want to use our platform.
+
+</p>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-md-6">
+
+<div class="role-card text-center p-5">
+
+<div class="role-icon mb-4">
+
+<i class="fa-solid fa-user fa-3x"></i>
+
+</div>
+
+<h3>
+
+Customer
+
+</h3>
+
+<p class="text-secondary">
+
+Browse products, add to cart and place orders from trusted sellers.
+
+</p>
+
+<a href="{% url 'customer_register' %}"
+class="btn pastel-btn mt-3 w-100">
+
+Register as Customer
+
+</a>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="role-card text-center p-5">
+
+<div class="role-icon mb-4">
+
+<i class="fa-solid fa-store fa-3x"></i>
+
+</div>
+
+<h3>
+
+Seller
+
+</h3>
+
+<p class="text-secondary">
+
+Start your online store and sell products across the platform.
+
+</p>
+
+<a href="{% url 'seller_register' %}"
+class="btn pastel-btn mt-3 w-100">
+
+Register as Seller
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

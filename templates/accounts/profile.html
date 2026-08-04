@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="glass p-5">
+
+        <div class="row">
+
+            <!-- Left Side -->
+
+            <div class="col-lg-4 text-center">
+
+                {% if request.user.profile_image %}
+
+                <img src="{{ request.user.profile_image.url }}"
+                     class="rounded-circle shadow mb-4"
+                     width="220"
+                     height="220"
+                     style="object-fit:cover;">
+
+                {% else %}
+
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                     class="rounded-circle shadow mb-4"
+                     width="220">
+
+                {% endif %}
+
+                <h3 class="fw-bold">
+                    {{ request.user.username }}
+                </h3>
+
+                <p class="text-muted">
+                    {{ request.user.role|title }}
+                </p>
+
+            </div>
+
+            <div class="row mt-4 g-3">
+
+                {% if request.user.role == "customer" %}
+            
+                <div class="col-md-4">
+                    <div class="admin-card bg-purple text-center">
+                        <i class="fa-solid fa-box"></i>
+                        <h6 class="mt-2">Orders</h6>
+                        <h3>{{ total_orders }}</h3>
+                    </div>
+                </div>
+            
+                <div class="col-md-4">
+                    <div class="admin-card bg-pink text-center">
+                        <i class="fa-solid fa-heart"></i>
+                        <h6 class="mt-2">Wishlist</h6>
+                        <h3>{{ wishlist_count }}</h3>
+                    </div>
+                </div>
+            
+                <div class="col-md-4">
+                    <div class="admin-card bg-blue text-center">
+                        <i class="fa-solid fa-star"></i>
+                        <h6 class="mt-2">Reviews</h6>
+                        <h3>{{ review_count }}</h3>
+                    </div>
+                </div>
+            
+                {% endif %}
+            
+                {% if request.user.role == "seller" %}
+            
+                <div class="col-md-4">
+                    <div class="admin-card bg-purple text-center">
+                        <i class="fa-solid fa-box-open"></i>
+                        <h6 class="mt-2">Products</h6>
+                        <h3>{{ total_products }}</h3>
+                    </div>
+                </div>
+            
+                <div class="col-md-4">
+                    <div class="admin-card bg-green text-center">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <h6 class="mt-2">Approved</h6>
+                        <h3>{{ approved_products }}</h3>
+                    </div>
+                </div>
+            
+                <div class="col-md-4">
+                    <div class="admin-card bg-warning text-center">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                        <h6 class="mt-2">Pending</h6>
+                        <h3>{{ pending_products }}</h3>
+                    </div>
+                </div>
+            
+                {% endif %}
+            
+            </div>
+
+            <!-- Right Side -->
+
+            <div class="col-lg-8">
+
+                <h2 class="gradient-text mb-4">
+
+                    Edit Profile
+
+                </h2>
+
+                <div class="glass p-3 mb-4">
+
+                    <h5 class="mb-2">
+                        👋 Welcome {{ request.user.first_name|default:request.user.username }}
+                    </h5>
+                
+                    <p class="text-muted mb-0">
+                
+                        Keep your profile updated to enjoy a better shopping and selling experience.
+                
+                    </p>
+                
+                </div>
+
+                <form method="POST"
+                      enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                First Name
+                            </label>
+
+                            {{ form.first_name }}
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Last Name
+                            </label>
+
+                            {{ form.last_name }}
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Email
+                            </label>
+
+                            {{ form.email }}
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Phone
+                            </label>
+
+                            {{ form.phone }}
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                City
+                            </label>
+
+                            {{ form.city }}
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                State
+                            </label>
+
+                            {{ form.state }}
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Pincode
+                            </label>
+
+                            {{ form.pincode }}
+
+                        </div>
+
+                        <div class="col-12 mb-3">
+
+                            <label class="form-label">
+                                Address
+                            </label>
+
+                            {{ form.address }}
+
+                        </div>
+
+                        <div class="col-12 mb-4">
+
+                            <label class="form-label">
+                                Profile Photo
+                            </label>
+
+                            {{ form.profile_image }}
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn pastel-btn btn-lg">
+
+                        <i class="fa-solid fa-floppy-disk me-2"></i>
+
+                        Save Profile
+
+                    </button>
+
+                    <div class="alert alert-info mt-4">
+
+                        <i class="fa-solid fa-circle-info"></i>
+                    
+                        Your profile information is visible only to you and is kept secure.
+                    
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

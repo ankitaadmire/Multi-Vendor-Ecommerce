@@ -1,0 +1,235 @@
+{% extends 'adminpanel/base_admin.html' %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <!-- Header -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold">
+
+                <i class="fa-solid fa-circle-check text-success"></i>
+
+                Approved Products
+
+            </h2>
+
+            <p class="text-muted">
+
+                Total Approved Products :
+
+                <span class="badge bg-success">
+
+                    {{ total_products }}
+
+                </span>
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Search Card -->
+
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+        <div class="card-body">
+
+            <form method="GET">
+
+                <div class="input-group">
+
+                    <input
+                        type="text"
+                        name="q"
+                        value="{{ query }}"
+                        class="form-control"
+                        placeholder="Search by Product, Category or Seller">
+
+                    <button class="btn btn-success">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        Search
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Product Table -->
+
+    <div class="card border-0 shadow rounded-4">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Image</th>
+
+                            <th>Product</th>
+
+                            <th>Seller</th>
+
+                            <th>Category</th>
+
+                            <th>Price</th>
+
+                            <th>Status</th>
+
+                            <th class="text-center">
+
+                                Action
+
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    {% for product in products %}
+
+<tr>
+
+    <td>
+
+        {{ forloop.counter }}
+
+    </td>
+
+    <td>
+
+        {% if product.image %}
+
+        <img src="{{ product.image.url }}"
+             width="70"
+             height="70"
+             class="rounded shadow-sm"
+             style="object-fit:cover;">
+
+        {% else %}
+
+        <span class="text-muted">
+
+            No Image
+
+        </span>
+
+        {% endif %}
+
+    </td>
+
+    <td>
+
+        <strong>
+
+            {{ product.product_name }}
+
+        </strong>
+
+    </td>
+
+    <td>
+
+        {{ product.seller.username }}
+
+    </td>
+
+    <td>
+
+        {{ product.category.name }}
+
+    </td>
+
+    <td>
+
+        ₹{{ product.price }}
+
+    </td>
+
+    <td>
+
+        <span class="badge bg-success">
+
+            Approved
+
+        </span>
+
+    </td>
+
+    <td class="text-center">
+
+        <button
+            class="btn btn-outline-primary btn-sm">
+
+            <i class="fa-solid fa-eye"></i>
+
+            View
+
+        </button>
+
+    </td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+    <td colspan="8" class="text-center py-5">
+
+        <i class="fa-solid fa-box-open fa-3x text-secondary mb-3"></i>
+
+        <h5>
+
+            No Approved Products
+
+        </h5>
+
+        <p class="text-muted">
+
+            Approved products will appear here.
+
+        </p>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+                    <tbody>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

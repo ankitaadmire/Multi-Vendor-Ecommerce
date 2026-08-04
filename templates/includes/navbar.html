@@ -1,0 +1,231 @@
+<nav class="navbar navbar-expand-lg custom-navbar fixed-top">
+
+<div class="container">
+
+    <a class="navbar-brand fw-bold" href="/">
+        🛍️ Multi Vendor
+    </a>
+
+
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav">
+
+        <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+
+        <ul class="navbar-nav ms-auto align-items-center">
+
+
+            <!-- COMMON -->
+
+            <li class="nav-item">
+
+                <a class="nav-link" href="/">
+                    <i class="fa-solid fa-house"></i>
+                    Home
+                </a>
+
+            </li>
+
+
+            <li class="nav-item">
+
+                <a class="nav-link" href="{% url 'product_list' %}">
+                    <i class="fa-solid fa-store"></i>
+                    Shop
+                </a>
+
+            </li>
+
+
+
+            {% if user.is_authenticated %}
+
+
+
+                <!-- CUSTOMER -->
+
+                {% if user.role == "customer" %}
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="{% url 'cart' %}">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        Cart
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="{% url 'my_wishlist' %}">
+                        <i class="fa-solid fa-heart"></i>
+                        Wishlist
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="{% url 'my_orders' %}">
+                        <i class="fa-solid fa-box"></i>
+                        Orders
+                    </a>
+
+                </li>
+
+
+
+                {% endif %}
+
+
+
+                <!-- SELLER -->
+
+
+                {% if user.role == "seller" %}
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="{% url 'seller_dashboard' %}">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Dashboard
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="{% url 'seller_products' %}">
+                        <i class="fa-solid fa-box-open"></i>
+                        My Products
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="{% url 'add_product' %}">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Product
+                    </a>
+
+                </li>
+
+
+                {% endif %}
+
+
+
+
+                <!-- ADMIN -->
+
+
+                {% if user.role == "admin" %}
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="{% url 'admin_dashboard' %}">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Dashboard
+                    </a>
+
+                </li>
+
+
+                {% endif %}
+
+
+
+
+                <!-- PROFILE COMMON -->
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="{% url 'profile' %}">
+                        <i class="fa-solid fa-user"></i>
+                        Profile
+                    </a>
+
+                </li>
+
+
+
+
+                <!-- LOGOUT -->
+
+                <li class="nav-item ms-3">
+
+                    <a href="{% url 'logout' %}"
+                       class="btn pastel-btn">
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+
+
+            {% else %}
+
+
+
+                <!-- GUEST USER -->
+
+
+                <li class="nav-item">
+
+                    <a href="{% url 'login' %}"
+                       class="nav-link">
+
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        Login
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item ms-3">
+
+                    <a href="{% url 'register' %}"
+                       class="btn pastel-btn">
+
+                        Register
+
+                    </a>
+
+                </li>
+
+
+
+            {% endif %}
+
+
+
+        </ul>
+
+
+    </div>
+
+
+</div>
+
+
+</nav>

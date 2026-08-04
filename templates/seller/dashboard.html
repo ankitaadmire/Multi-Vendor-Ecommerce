@@ -1,0 +1,582 @@
+{% extends 'base.html' %}
+
+{% block title %}Seller Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- Welcome Section -->
+
+    <div class="glass p-5 mb-5">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-7">
+
+                <span class="badge bg-light text-dark px-3 py-2 mb-3">
+                    Seller Panel
+                </span>
+
+                <h1 class="gradient-text fw-bold display-5">
+                    Welcome Back, {{ request.user.username }} 👋
+                </h1>
+
+                <p class="lead text-muted mt-3">
+                    Manage your products, monitor your store and grow your business with our Multi Vendor Ecommerce Platform.
+                </p>
+
+                <a href="{% url 'add_product' %}" class="btn pastel-btn mt-3">
+
+                    <i class="fa-solid fa-plus me-2"></i>
+
+                    Add New Product
+
+                </a>
+
+            </div>
+
+            <div class="col-lg-5 text-center">
+
+                <i class="fa-solid fa-store seller-hero-icon"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Statistics Cards -->
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-3">
+
+            <div class="admin-card bg-purple text-center">
+
+                <i class="fa-solid fa-box fa-2x mb-3"></i>
+
+                <h5>Total Products</h5>
+
+                <h2>{{ total_products }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="admin-card bg-pink text-center">
+
+                <i class="fa-solid fa-cart-shopping fa-2x mb-3"></i>
+
+                <h5>Total Orders</h5>
+
+                <h2>{{ total_orders }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="admin-card bg-blue text-center">
+
+                <i class="fa-solid fa-star fa-2x mb-3"></i>
+
+                <h5>Average Rating</h5>
+
+                <h2>{{ average_rating }} ⭐</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="admin-card bg-green text-center">
+
+                <i class="fa-solid fa-indian-rupee-sign fa-2x mb-3"></i>
+
+                <h5>Total Revenue</h5>
+
+                <h2>₹{{ total_revenue }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="admin-card bg-warning text-center">
+
+                <i class="fa-solid fa-clock fa-2x mb-3"></i>
+
+                <h5>Pending Orders</h5>
+
+                <h2>{{ pending_orders }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Quick Actions -->
+
+    <div class="glass p-5 mb-5">
+
+        <h3 class="fw-bold mb-4">
+
+            Quick Actions
+
+        </h3>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+
+                <a href="{% url 'add_product' %}" class="action-card">
+
+                    <div class="action-icon pastel-green">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                    </div>
+
+                    <h5>Add Product</h5>
+
+                    <p>Upload a new product and start selling instantly.</p>
+
+                </a>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <a href="{% url 'seller_products' %}" class="action-card">
+
+                    <div class="action-icon pastel-blue">
+
+                        <i class="fa-solid fa-box"></i>
+
+                    </div>
+
+                    <h5>My Products</h5>
+
+                    <p>View and manage all uploaded products.</p>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+        <!-- Seller Tips & Store Progress -->
+
+        <div class="row">
+
+            <!-- Seller Tips -->
+    
+            <div class="col-lg-6">
+    
+                <div class="glass p-4 h-100">
+    
+                    <h3 class="mb-4">
+                        Seller Tips
+                    </h3>
+    
+                    <ul class="seller-tips">
+    
+                        <li>📷 Upload high quality product images.</li>
+    
+                        <li>📝 Write detailed descriptions.</li>
+    
+                        <li>💰 Keep competitive pricing.</li>
+    
+                        <li>📦 Keep your stock updated.</li>
+    
+                        <li>🚚 Deliver orders quickly.</li>
+    
+                    </ul>
+    
+                </div>
+    
+            </div>
+    
+            <!-- Store Progress -->
+    
+            <div class="col-lg-6">
+    
+                <div class="glass p-4 h-100">
+    
+                    <h3>
+                        Store Progress
+                    </h3>
+    
+                    <p class="text-muted">
+                        You're building an amazing store.
+                    </p>
+    
+                    <div class="progress my-4">
+    
+                        <div
+                            class="progress-bar bg-success"
+                            style="width:78%;">
+    
+                            78%
+    
+                        </div>
+    
+                    </div>
+    
+                    <h5>
+                        ⭐ Trusted Seller
+                    </h5>
+    
+                    <p class="text-muted">
+    
+                        Upload more products to unlock Premium Seller Badge.
+    
+                    </p>
+    
+                </div>
+    
+            </div>
+    
+        </div>
+    
+    
+    
+        <!-- Recent Orders -->
+    
+        <div class="glass p-4 mt-5">
+    
+            <h3 class="fw-bold mb-4">
+    
+                Recent Orders
+    
+            </h3>
+    
+            <div class="table-responsive">
+    
+                <table class="table table-hover align-middle">
+    
+                    <thead>
+    
+                        <tr>
+    
+                            <th>Customer</th>
+    
+                            <th>Product</th>
+    
+                            <th>Qty</th>
+    
+                            <th>Total</th>
+    
+                            <th>Status</th>
+    
+                        </tr>
+    
+                    </thead>
+    
+                    <tbody>
+    
+                        {% for order in recent_orders %}
+    
+                        <tr>
+    
+                            <td>{{ order.customer.username }}</td>
+    
+                            <td>{{ order.product.product_name }}</td>
+    
+                            <td>{{ order.quantity }}</td>
+    
+                            <td>₹{{ order.total_price }}</td>
+    
+                            <td>
+    
+                                {% if order.status == "Delivered" %}
+                                    <span class="badge bg-success">
+                                        {{ order.status }}
+                                    </span>
+    
+                                {% elif order.status == "Pending" %}
+    
+                                    <span class="badge bg-warning text-dark">
+                                        {{ order.status }}
+                                    </span>
+    
+                                {% else %}
+    
+                                    <span class="badge bg-primary">
+                                        {{ order.status }}
+                                    </span>
+    
+                                {% endif %}
+    
+                            </td>
+    
+                        </tr>
+    
+                        {% empty %}
+    
+                        <tr>
+    
+                            <td colspan="5" class="text-center">
+    
+                                No Orders Yet
+    
+                            </td>
+    
+                        </tr>
+    
+                        {% endfor %}
+    
+                    </tbody>
+    
+                </table>
+    
+            </div>
+    
+        </div>
+
+            <!-- Sales Analytics -->
+
+    <div class="glass p-4 mt-5">
+
+        <h3 class="fw-bold mb-4">
+            📈 Sales Analytics
+        </h3>
+
+        <canvas id="salesChart" height="100"></canvas>
+
+    </div>
+
+
+
+    <!-- Best Selling Products -->
+
+    <div class="glass p-4 mt-5">
+
+        <h3 class="fw-bold mb-4">
+            🏆 Best Selling Products
+        </h3>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Product</th>
+
+                        <th>Total Orders</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for product in best_products %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ product.product_name }}
+
+                        </td>
+
+                        <td>
+
+                            <span class="badge bg-success">
+
+                                {{ product.total_sold }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="2" class="text-center">
+
+                            No Sales Yet
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    if (typeof Chart === "undefined") {
+
+        console.log("Chart.js not loaded");
+
+        return;
+
+    }
+
+    const labels = [
+
+        {% for item in monthly_sales %}
+
+        "{{ item.month|date:'M Y' }}"{% if not forloop.last %},{% endif %}
+
+        {% endfor %}
+
+    ];
+
+
+
+    const salesData = [
+
+        {% for item in monthly_sales %}
+
+        {{ item.total_orders }}{% if not forloop.last %},{% endif %}
+
+        {% endfor %}
+
+    ];
+
+
+
+    const ctx = document.getElementById("salesChart");
+
+
+
+    if(ctx){
+
+        new Chart(ctx,{
+
+            type:"line",
+
+            data:{
+
+                labels:labels,
+
+                datasets:[{
+
+                    label:"Orders",
+
+                    data:salesData,
+
+                    fill:true,
+
+                    tension:0.4,
+
+                    borderWidth:3,
+
+                    borderColor:"#8b5cf6",
+
+                    backgroundColor:"rgba(139,92,246,0.15)",
+
+                    pointBackgroundColor:"#8b5cf6",
+
+                    pointRadius:5
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:true,
+
+                plugins:{
+
+                    legend:{
+
+                        display:true
+
+                    }
+
+                },
+
+                scales:{
+
+                    y:{
+
+                        beginAtZero:true,
+
+                        ticks:{
+
+                            precision:0
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+});
+
+</script>
+
+<!-- Dashboard Footer -->
+
+<div class="glass p-4 mt-5 text-center">
+
+    <h4 class="gradient-text mb-3">
+
+        🚀 Keep Growing Your Business
+
+    </h4>
+
+    <p class="text-muted mb-0">
+
+        Add more quality products, deliver orders on time, maintain excellent ratings,
+        and watch your store grow every day.
+
+    </p>
+
+</div>
+
+{% endblock %}
+
+
+
+        
+
+
+
+
+

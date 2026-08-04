@@ -1,0 +1,200 @@
+{% extends 'adminpanel/base_admin.html' %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <h2 class="fw-bold mb-4">
+        <i class="fa-solid fa-chart-line text-primary"></i>
+        Analytics Dashboard
+    </h2>
+
+    <div class="row g-4">
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow border-0 text-center p-4">
+                <i class="fa-solid fa-store fa-3x text-primary mb-3"></i>
+                <h3>{{ total_sellers }}</h3>
+                <p>Total Sellers</p>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow border-0 text-center p-4">
+                <i class="fa-solid fa-users fa-3x text-success mb-3"></i>
+                <h3>{{ total_customers }}</h3>
+                <p>Total Customers</p>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow border-0 text-center p-4">
+                <i class="fa-solid fa-box fa-3x text-warning mb-3"></i>
+                <h3>{{ total_products }}</h3>
+                <p>Total Products</p>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow border-0 text-center p-4">
+                <i class="fa-solid fa-cart-shopping fa-3x text-danger mb-3"></i>
+                <h3>{{ total_orders }}</h3>
+                <p>Total Orders</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row mt-5">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body">
+
+                    <h4 class="mb-4">
+
+                        Marketplace Overview
+
+                    </h4>
+
+                    <canvas id="analyticsChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body">
+
+                    <h4 class="mb-4">
+
+                        Product Status
+
+                    </h4>
+
+                    <div class="d-flex justify-content-between mb-3">
+
+                        <span>Approved</span>
+
+                        <span class="badge bg-success">
+
+                            {{ approved_products }}
+
+                        </span>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-3">
+
+                        <span>Pending</span>
+
+                        <span class="badge bg-warning text-dark">
+
+                            {{ pending_products }}
+
+                        </span>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>Rejected</span>
+
+                        <span class="badge bg-danger">
+
+                            {{ rejected_products }}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded",function(){
+
+const ctx=document.getElementById("analyticsChart");
+
+new Chart(ctx,{
+
+type:"bar",
+
+data:{
+
+labels:["Sellers","Customers","Products","Orders"],
+
+datasets:[{
+
+data:[
+
+{{ total_sellers }},
+
+{{ total_customers }},
+
+{{ total_products }},
+
+{{ total_orders }}
+
+],
+
+backgroundColor:[
+
+"#7c3aed",
+
+"#0ea5e9",
+
+"#f59e0b",
+
+"#10b981"
+
+],
+
+borderRadius:10
+
+}]
+
+},
+
+options:{
+
+plugins:{
+
+legend:{
+
+display:false
+
+}
+
+},
+
+responsive:true
+
+}
+
+});
+
+});
+
+</script>
+
+{% endblock %}

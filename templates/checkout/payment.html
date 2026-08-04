@@ -1,0 +1,366 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+Payment
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="glass p-5 text-center mb-5">
+
+        <span class="badge rounded-pill px-3 py-2 mb-3"
+              style="background:#F4E8FF;color:#8B5CF6;">
+
+            Secure Payment
+
+        </span>
+
+        <h1 class="gradient-text fw-bold">
+
+            Choose Your Payment Method
+
+        </h1>
+
+        <p class="text-secondary">
+
+            Your payment is secured with 256-bit encryption.
+
+        </p>
+
+    </div>
+
+    <div class="row">
+
+        <!-- Payment Methods -->
+
+        <div class="col-lg-7">
+
+            <div class="glass p-4">
+
+                <h3 class="gradient-text mb-4">
+
+                    Payment Options
+
+                </h3>
+
+                <div class="form-check mb-3">
+
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        name="payment"
+                        id="cod"
+                        checked>
+
+                    <label
+                        class="form-check-label"
+                        for="cod">
+
+                        💵 Cash On Delivery
+
+                    </label>
+
+                </div>
+
+                <div class="form-check mb-3">
+
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        name="payment"
+                        id="upi">
+
+                    <label
+                        class="form-check-label"
+                        for="upi">
+
+                        📱 UPI Payment
+
+                    </label>
+
+                </div>
+
+                <div class="form-check mb-3">
+
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        name="payment"
+                        id="card">
+
+                    <label
+                        class="form-check-label"
+                        for="card">
+
+                        💳 Credit / Debit Card
+
+                    </label>
+
+                </div>
+
+                <div class="form-check mb-4">
+
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        name="payment"
+                        id="netbanking">
+
+                    <label
+                        class="form-check-label"
+                        for="netbanking">
+
+                        🏦 Net Banking
+
+                    </label>
+
+                </div>
+
+                <hr>
+
+<!-- UPI Payment -->
+
+<div class="mb-4">
+
+    <label class="form-label">
+
+        UPI ID
+
+    </label>
+
+    <input
+        type="text"
+        class="form-control"
+        placeholder="example@oksbi">
+
+</div>
+
+<!-- Card Details -->
+
+<div class="row">
+
+    <div class="col-md-12 mb-3">
+
+        <label class="form-label">
+
+            Card Number
+
+        </label>
+
+        <input
+            type="text"
+            class="form-control"
+            placeholder="1234 5678 9012 3456">
+
+    </div>
+
+    <div class="col-md-6 mb-3">
+
+        <label class="form-label">
+
+            Expiry Date
+
+        </label>
+
+        <input
+            type="text"
+            class="form-control"
+            placeholder="MM/YY">
+
+    </div>
+
+    <div class="col-md-6 mb-3">
+
+        <label class="form-label">
+
+            CVV
+
+        </label>
+
+        <input
+            type="password"
+            class="form-control"
+            placeholder="123">
+
+    </div>
+
+</div>
+
+<!-- Net Banking -->
+
+<div class="mb-4">
+
+    <label class="form-label">
+
+        Select Bank
+
+    </label>
+
+    <select class="form-select">
+
+        <option>State Bank of India</option>
+
+        <option>HDFC Bank</option>
+
+        <option>ICICI Bank</option>
+
+        <option>Axis Bank</option>
+
+        <option>Punjab National Bank</option>
+
+        <option>Bank of Baroda</option>
+
+    </select>
+
+</div>
+
+<div class="alert alert-info">
+
+    🔒 Your payment details are encrypted and secure.
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Order Summary -->
+
+<div class="col-lg-5">
+
+    <div class="glass p-4 sticky-top">
+
+        <h3 class="gradient-text mb-4">
+
+            Order Summary
+
+        </h3>
+
+        {% for item in cart_items %}
+
+        <div class="d-flex justify-content-between mb-3">
+
+            <div>
+
+                <strong>
+
+                    {{ item.product.product_name }}
+
+                </strong>
+
+                <br>
+
+                <small>
+
+                    Qty : {{ item.quantity }}
+
+                </small>
+
+            </div>
+
+            <strong>
+
+                ₹ {{ item.product.price }}
+
+            </strong>
+
+        </div>
+
+        {% endfor %}
+
+        <hr>
+
+        <div class="d-flex justify-content-between mb-3">
+
+            <span>
+
+                Subtotal
+
+            </span>
+
+            <strong>
+
+                ₹ {{ subtotal }}
+
+            </strong>
+
+        </div>
+
+        <div class="d-flex justify-content-between mb-3">
+
+            <span>
+
+                Shipping
+
+            </span>
+
+            <span class="text-success">
+
+                FREE
+
+            </span>
+
+        </div>
+
+        <div class="d-flex justify-content-between mb-4">
+
+            <h4>
+
+                Total
+
+            </h4>
+
+            <h3 class="gradient-text">
+
+                ₹ {{ total }}
+
+            </h3>
+
+        </div>
+
+        <hr>
+
+        <form method="POST" action="{% url 'place_order' %}">
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                class="btn pastel-btn btn-lg w-100">
+
+                <i class="fa-solid fa-check me-2"></i>
+
+                Place Order
+
+            </button>
+
+        </form>
+
+        <a href="{% url 'cart' %}"
+           class="btn btn-outline-secondary w-100 mt-3">
+
+            <i class="fa-solid fa-arrow-left me-2"></i>
+
+            Back to Cart
+
+        </a>
+
+        <p class="text-center text-muted mt-4 mb-0">
+
+            🔒 Safe • Secure • Trusted Checkout
+
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

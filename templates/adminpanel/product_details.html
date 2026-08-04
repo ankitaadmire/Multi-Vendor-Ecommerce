@@ -1,0 +1,222 @@
+{% extends 'adminpanel/base_admin.html' %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10">
+
+            <div class="card shadow-lg border-0 rounded-4">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h3 class="mb-0">
+
+                        <i class="fa-solid fa-box-open me-2"></i>
+
+                        Product Details
+
+                    </h3>
+
+                </div>
+
+                <div class="card-body p-5">
+
+                    <div class="row">
+
+                        <!-- Product Image -->
+
+                        <div class="col-md-4 text-center">
+
+                            {% if product.image %}
+
+                            <img src="{{ product.image.url }}"
+                                 class="img-fluid rounded shadow"
+                                 style="max-height:300px;">
+
+                            {% else %}
+
+                            <img src="https://via.placeholder.com/300x300?text=No+Image"
+                                 class="img-fluid rounded">
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <!-- Product Information -->
+
+                        <div class="col-md-8">
+
+                            <table class="table table-bordered">
+
+                                <tr>
+
+                                    <th width="30%">
+
+                                        Product Name
+
+                                    </th>
+
+                                    <td>
+
+                                        {{ product.product_name }}
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Category
+
+                                    </th>
+
+                                    <td>
+
+                                        {{ product.category }}
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Seller
+
+                                    </th>
+
+                                    <td>
+
+                                        {{ product.seller.username }}
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Price
+
+                                    </th>
+
+                                    <td>
+
+                                        ₹{{ product.price }}
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Stock
+
+                                    </th>
+
+                                    <td>
+
+                                        {{ product.stock }}
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Status
+
+                                    </th>
+
+                                    <td>
+
+                                        {% if product.status == "Approved" %}
+
+                                        <span class="badge bg-success">
+
+                                            Approved
+
+                                        </span>
+
+                                        {% elif product.status == "Pending" %}
+
+                                        <span class="badge bg-warning text-dark">
+
+                                            Pending
+
+                                        </span>
+
+                                        {% else %}
+
+                                        <span class="badge bg-danger">
+
+                                            Rejected
+
+                                        </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Description
+
+                                    </th>
+
+                                    <td>
+
+                                        {{ product.description }}
+
+                                    </td>
+
+                                </tr>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card-footer text-end">
+
+                    <a href="{% url 'admin_products' %}"
+
+                       class="btn btn-secondary">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Back
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
