@@ -53,14 +53,12 @@
 
 ### 💬 My Orders
 
-![Customer-Seller Chat](screenshots/15.png)
+![My Orders](screenshots/15.png)
 
 
 
 
-### 🔔 Admin Notifications
 
-![Admin Notifications](screenshots/notifications.png)
 
 
 
