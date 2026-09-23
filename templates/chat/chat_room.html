@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}
+Chat
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+
+    <div class="card shadow border-0 rounded-4">
+
+        <div class="card-header bg-primary text-white">
+
+            <h4 class="mb-0">
+
+                💬 Chat with {{ room.seller.username }}
+
+            </h4>
+
+        </div>
+
+        <!-- Chat Messages -->
+
+        <div
+            id="chat-box"
+            class="card-body"
+            style="height:450px; overflow-y:auto; background:#f8f9fa;">
+
+            {% include "chat/messages.html" %}
+
+        </div>
+
+        <!-- Send Message -->
+
+        <div class="card-footer">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="input-group">
+
+                    <input
+                        type="text"
+                        name="message"
+                        class="form-control"
+                        placeholder="Type your message..."
+                        required>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        <i class="fa-solid fa-paper-plane me-2"></i>
+
+                        Send
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    function loadMessages() {
+    
+        console.log("Fetching messages...");
+    
+        fetch("{% url 'fetch_messages' room.id %}")
+            .then(response => response.json())
+            .then(data => {
+    
+                console.log(data);
+    
+                const chatBox = document.getElementById("chat-box");
+    
+                chatBox.innerHTML = data.html;
+    
+                chatBox.scrollTop = chatBox.scrollHeight;
+    
+            })
+            .catch(error => {
+    
+                console.log("ERROR:", error);
+    
+            });
+    
+    }
+    
+    loadMessages();
+    
+    setInterval(loadMessages, 2000);
+    
+    </script>
+
+
+
+{% endblock %}

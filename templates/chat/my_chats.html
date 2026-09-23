@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">My Chats</h2>
+
+    {% for room in rooms %}
+
+    <div class="card mb-3 shadow-sm">
+
+        <div class="card-body">
+
+            {% if request.user == room.customer %}
+
+                <h5>Seller : {{ room.seller.username }}</h5>
+
+            {% else %}
+
+                <h5>Customer : {{ room.customer.username }}</h5>
+
+            {% endif %}
+
+            <p>
+
+                Product :
+                {{ room.product.product_name }}
+
+            </p>
+
+            <a
+                href="{% url 'chat_room' room.id %}"
+                class="btn btn-primary">
+
+                Open Chat
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <h5>No Chats Yet</h5>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

@@ -18,7 +18,9 @@ class ChatRoom(models.Model):
 
     product = models.ForeignKey(
         "products.Product",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
     )
 
     created_at = models.DateTimeField(

@@ -1,0 +1,49 @@
+{% for message in messages %}
+
+    {% if message.sender == request.user %}
+
+        <div class="text-end mb-3">
+
+            <span class="badge bg-primary p-3">
+
+                {{ message.message }}
+
+            </span>
+
+            <br>
+
+            <small>
+
+                {{ message.created_at|date:"H:i" }}
+
+            </small>
+
+        </div>
+
+    {% else %}
+
+        <div class="text-start mb-3">
+
+            <span class="badge bg-secondary p-3">
+
+                {{ message.message }}
+
+            </span>
+
+            <br>
+
+            <small>
+
+                {{ message.created_at|date:"H:i" }}
+
+            </small>
+
+        </div>
+
+    {% endif %}
+
+{% empty %}
+
+    <p>No messages yet.</p>
+
+{% endfor %}
